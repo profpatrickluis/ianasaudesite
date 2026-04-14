@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURSO PRÁTICO - USO DE AGENTES DE IA NA SAÚDE | Clínica.IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00FF80;
+            --neon-cyan: #00F0FF;
+            --navy: #010205;
+            --navy-light: #0a0f1a;
+            --white: #FFFFFF;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-600: #6c757d;
+            --gray-800: #343a40;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--white);
+            color: var(--navy);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 255, 128, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, transparent 70%);
+            animation: pulse 5s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .course-title-badge {
+            display: inline-block;
+            background: rgba(0, 255, 128, 0.15);
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px rgba(0, 255, 128, 0.3); }
+            to { box-shadow: 0 0 30px rgba(0, 255, 128, 0.6); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--white);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--white) 0%, var(--neon-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hero-details {
+            color: var(--gray-300);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .hero-details span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-cyan) 100%);
+            color: var(--navy);
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 255, 128, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 128, 0.4);
+        }
+
+        .urgency-badge {
+            margin-top: 20px;
+            background: rgba(255, 50, 50, 0.2);
+            border: 1px solid #ff3333;
+            color: #ff6666;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--navy);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 30px auto 0;
+        }
+
+        /* Learning Pillars */
+        .pillars {
+            background: var(--gray-100);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .pillar-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-green);
+            box-shadow: 0 20px 40px rgba(0, 255, 128, 0.1);
+        }
+
+        .pillar-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            opacity: 0.3;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--navy);
+            padding-right: 60px;
+        }
+
+        .pillar-card p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
+        /* Schedule Section */
+        .schedule {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .schedule .section-header h2 {
+            color: var(--white);
+        }
+
+        .schedule .section-header h2::after {
+            background: var(--neon-green);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--neon-green), var(--neon-cyan));
+        }
+
+        .module {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .module:last-child {
+            border-bottom: none;
+        }
+
+        .module-marker {
+            position: absolute;
+            left: 15px;
+            top: 5px;
+            width: 30px;
+            height: 30px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 0.8rem;
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+        }
+
+        .module-time {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.2);
+            color: var(--neon-cyan);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .module h3 {
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .module-speaker {
+            color: var(--neon-green);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .module ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--gray-300);
+            font-size: 0.95rem;
+        }
+
+        .module li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+        }
+
+        .break {
+            background: rgba(0, 255, 128, 0.1);
+            border: 1px solid var(--neon-green);
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .break-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Instructors Section */
+        .instructors {
+            background: var(--white);
+        }
+
+        .instructors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .instructor-card {
+            background: var(--gray-100);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .instructor-card.featured {
+            border-color: var(--neon-green);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 255, 128, 0.15);
+        }
+
+        .instructor-card:hover {
+            border-color: var(--neon-cyan);
+            transform: translateY(-5px);
+        }
+
+        .instructor-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .instructor-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--navy);
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 4px solid var(--neon-green);
+            box-shadow: 0 10px 30px rgba(0, 255, 128, 0.3);
+        }
+
+        .instructor-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--navy);
+        }
+
+        .instructor-role {
+            color: var(--neon-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .instructor-bio {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .instructor-bio ul {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .instructor-bio li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .instructor-bio li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+
+        .method-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+            color: var(--navy);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        /* Target Audience */
+        .audience {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+        }
+
+        .audience .section-header h2 {
+            color: var(--white);
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .audience-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 255, 128, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .audience-item:hover {
+            background: rgba(0, 255, 128, 0.1);
+            border-color: var(--neon-green);
+            transform: translateY(-5px);
+        }
+
+        .audience-item h4 {
+            color: var(--neon-green);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .audience-item p {
+            color: var(--gray-300);
+            font-size: 0.9rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--gray-100);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--neon-green);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 255, 128, 0.2);
+        }
+
+        .pricing-card.popular::before {
+            content: 'MAIOR ECONOMIA';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--neon-green);
+            color: var(--navy);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--gray-600);
+            font-weight: 400;
+        }
+
+        .installment {
+            color: var(--neon-green);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Includes Section */
+        .includes {
+            background: var(--white);
+        }
+
+        .includes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .include-item {
+            padding: 30px;
+        }
+
+        .include-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .include-item:hover .include-icon {
+            transform: rotate(360deg);
+        }
+
+        .include-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--navy);
+        }
+
+        .include-item p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        /* Ethics Section */
+        .ethics {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .ethics .section-header h2 {
+            color: var(--white);
+        }
+
+        .ethics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .ethics-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 255, 128, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .ethics-card:hover {
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 128, 0.1);
+        }
+
+        .ethics-card h3 {
+            color: var(--neon-green);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ethics-card p, .ethics-card li {
+            color: var(--gray-300);
+            line-height: 1.8;
+        }
+
+        .ethics-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ethics-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .ethics-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 255, 128, 0.1) 0%, transparent 70%);
+        }
+
+        .footer-cta h2 {
+            color: var(--white);
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-cta .cta-button {
+            position: relative;
+            z-index: 1;
+            font-size: 1.3rem;
+            padding: 25px 60px;
+        }
+
+        .footer-warning {
+            color: #ff6666;
+            margin-top: 20px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--gray-100);
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--navy);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: var(--neon-green);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-green);
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer h3 {
+            color: var(--neon-green);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .course-title-badge {
+                font-size: 0.8rem;
+                padding: 10px 20px;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+
+            .instructor-card.featured {
+                transform: scale(1);
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .module {
+                padding-left: 50px;
+            }
+
+            .module-marker {
+                left: 0;
+                width: 25px;
+                height: 25px;
+                font-size: 0.7rem;
+            }
+
+            .instructor-avatar {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--neon-green);
+            color: var(--navy);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="course-title-badge">CURSO PRÁTICO - USO DE AGENTES DE IA NA SAÚDE</div>
+            <h1>Recupere 8 a 12 Horas da Sua Semana com Agentes de IA</h1>
+            <p class="hero-subtitle">Sem teoria desnecessária. Sem conteúdo genérico. Só o que você pode aplicar já no dia seguinte.</p>
+            <div class="hero-details">
+                <span>📅 16 de Maio de 2025</span>
+                <span>⏰ Das 08h00 às 14h00</span>
+                <span>📍 Tv. Barão do Triunfo, 3540 - Marco, Belém - PA</span>
+                <span>⏱️ 6 Horas Intensivas</span>
+            </div>
+            <a href="#investimento" class="cta-button">Garantir Minha Vaga no 1º Lote - R$ 398,00</a>
+            <div class="urgency-badge">
+                ⚡ ÚLTIMAS VAGAS DO 1º LOTE • Preço sobe para R$ 548,00 no 2º lote
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Pillars -->
+    <section class="pillars">
+        <div class="container">
+            <div class="section-header">
+                <h2>O Que Você Vai Aprender</h2>
+                <p>6 pilares práticos para transformar sua rotina profissional com Inteligência Artificial</p>
+            </div>
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-number">01</div>
+                    <h3>Reduzir o Tempo com Prontuários e Tarefas Repetitivas</h3>
+                    <p>Entenda quais tarefas operacionais estão consumindo mais do seu tempo clínico — e como delegá-las para a IA de forma segura. Veja na prática como a automação de documentação pode <span class="highlight">reduzir até 70% do tempo em anotações</span>, liberando você para o que realmente importa: seus pacientes.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-number">02</div>
+                    <h3>As 4 Áreas da Rotina Médica que Já Podem Ser Automatizadas</h3>
+                    <p>Documentação, comunicação com pacientes, atualização científica e gestão do consultório. Você vai ver exatamente onde começar, com demonstrações ao vivo de ferramentas que já estão transformando clínicas no Brasil.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-number">03</div>
+                    <h3>Usar IA sem Ferir LGPD nem Normas do CFM</h3>
+                    <p>As fronteiras éticas e regulatórias na prática — o que pode, o que não pode e como usar a IA como copiloto. Aprenda a nova <span class="highlight">Resolução CFM nº 2.454/2026</span> que estabelece que a IA deve atuar como ferramenta de apoio ao raciocínio clínico, mantendo a responsabilidade final com o médico.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-number">04</div>
+                    <h3>A Diferença entre IA Amadora e Método Validado</h3>
+                    <p>Por que a maioria dos médicos tenta usar IA e abandona em duas semanas — e como o método certo muda esse resultado. Aprenda o <span class="highlight">Método IA Pro+</span> que separa quem domina a tecnologia de quem é dominado por ela.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-number">05</div>
+                    <h3>Recuperar de 8 a 12 Horas por Semana</h3>
+                    <p>Veja na prática como um fluxo otimizado com IA impacta a sua semana real. Estudos mostram que ferramentas de IA podem <span class="highlight">reduzir em até 40% o tempo da consulta</span> e permitir <span class="highlight">duas consultas a mais por dia</span>.</p>
+                </div>
+                <div class="pillar-card">
+                    <div class="pillar-number">06</div>
+                    <h3>O Que Fazer Já Amanhã na Sua Prática</h3>
+                    <p>Sair da aula com um plano concreto, não apenas com inspiração. Passo a passo aplicável independente da sua especialidade — médicos, fisioterapeutas, farmacêuticos, nutricionistas, enfermeiros e todos os profissionais da saúde.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="schedule">
+        <div class="container">
+            <div class="section-header">
+                <h2>Programação Completa</h2>
+                <p>Das 08h00 às 14h00 • 6 horas de transformação prática</p>
+            </div>
+            <div class="timeline">
+                <div class="module">
+                    <div class="module-marker">1</div>
+                    <span class="module-time">08h00 - 08h45</span>
+                    <h3>Agentes que Investigam e Produzem Conteúdo</h3>
+                    <ul>
+                        <li>O que são agentes inteligentes e como eles "pensam"</li>
+                        <li><strong>Kimi K2.5:</strong> Análise e síntese de documentos científicos complexos em segundos</li>
+                        <li><strong>Claude:</strong> Raciocínio e análise crítica para casos clínicos</li>
+                        <li><strong>ChatGPT Modo Agente:</strong> Demonstração completa de investigação profunda</li>
+                        <li>Criação de relatórios e revisões científicas automatizadas</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <div class="module-marker">2</div>
+                    <span class="module-time">08h45 - 09h30</span>
+                    <h3>Manus AI, Kimi K2.5 e Claude para Produção de Alto Impacto</h3>
+                    <ul>
+                        <li><strong>Kimi K2.5:</strong> Síntese de artigos científicos complexos e análise de documentos extensos</li>
+                        <li><strong>Claude:</strong> Análise crítica de casos clínicos complexos e desenvolvimento de protocolos terapêuticos</li>
+                        <li><strong>Manus AI:</strong> Geração de aulas completas a partir de tópicos</li>
+                        <li>Dossiês e apresentações estruturadas para congressos</li>
+                        <li>Elaboração de laudos complexos automatizados</li>
+                        <li>Criação de e-books e materiais didáticos profissionais</li>
+                    </ul>
+                </div>
+
+                <div class="break">
+                    <div class="break-icon">☕</div>
+                    <h4>Coffee Break & Networking</h4>
+                    <p>09h30 - 09h45</p>
+                </div>
+
+                <div class="module">
+                    <div class="module-marker">3</div>
+                    <span class="module-time">09h45 - 10h45</span>
+                    <h3>Criação de Sites e Web Aplicações com Kimi K2.5, Claude e Ferramentas No-Code</h3>
+                    <ul>
+                        <li><strong>Kimi K2.5:</strong> Geração de materiais educacionais de alta qualidade</li>
+                        <li><strong>Claude:</strong> Revisão e edição de textos científicos, brainstorming estratégico</li>
+                        <li><strong>Lovable AI:</strong> Criação de sites profissionais para clínicas</li>
+                        <li><strong>v0 e Bolt.new:</strong> Interfaces modernas e responsivas</li>
+                        <li><strong>Replit Agent:</strong> Aplicações funcionais de cadastro e agendamento</li>
+                        <li>Landing pages que convertem pacientes</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <div class="module-marker">4</div>
+                    <span class="module-time">10h45 - 11h30</span>
+                    <h3>Automação de Laudos e Documentos Clínicos</h3>
+                    <div class="module-speaker">🎓 Dr. Jean Klay Machado • Médico Ortopedista</div>
+                    <ul>
+                        <li>Aceleração de criação de laudos médicos complexos com padronização inteligente</li>
+                        <li>Geração de materiais científicos e conteúdos de divulgação</li>
+                        <li>Documentação clínica padronizada sem esforço repetitivo</li>
+                        <li>Fluxos administrativos inteligentes que eliminam burocracia</li>
+                        <li>Cases reais de automação na prática ortopédica aplicáveis a todas as especialidades</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <div class="module-marker">5</div>
+                    <span class="module-time">11h30 - 12h15</span>
+                    <h3>Gestão da Clínica com Agentes</h3>
+                    <ul>
+                        <li>Análise inteligente da agenda e identificação de buracos</li>
+                        <li>Previsão de no-show e otimização da agenda</li>
+                        <li>Organização da rotina profissional com IA</li>
+                        <li>Tomada de decisão assistida por dados</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <div class="module-marker">6</div>
+                    <span class="module-time">12h15 - 13h00</span>
+                    <h3>Comunicação Integrada para Médicos</h3>
+                    <div class="module-speaker">🎓 André Laurent • Agência Laurent Marketing de Autoridade</div>
+                    <ul>
+                        <li>Como organizar canais de aquisição de pacientes</li>
+                        <li>Estratégias para aumentar receitas através da comunicação digital</li>
+                        <li>Marketing de autoridade para médicos: construção de reputação online</li>
+                        <li>Comunicação científica acessível: traduzir conhecimento técnico em conteúdo que conecta</li>
+                        <li>Cases de médicos que multiplicaram sua visibilidade e faturamento</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <div class="module-marker">7</div>
+                    <span class="module-time">13h00 - 13h45</span>
+                    <h3>Demonstração do Agent Builder & Ética na Prática</h3>
+                    <ul>
+                        <li>Como um agente planeja, decide e executa ações</li>
+                        <li>Cadeia de pensamento e raciocínio estruturado</li>
+                        <li><strong>LGPD e CFM na prática:</strong> Como implementar IA dentro da lei</li>
+                        <li>Classificação de risco dos sistemas de IA (Baixo, Médio, Alto)</li>
+                        <li>Exemplos reais aplicados à saúde com governança clínica</li>
+                    </ul>
+                </div>
+
+                <div class="module">
+                    <div class="module-marker">8</div>
+                    <span class="module-time">13h45 - 14h00</span>
+                    <h3>Plano de Implementação Imediata</h3>
+                    <ul>
+                        <li>O que fazer já amanhã na sua prática</li>
+                        <li>Passo a passo por especialidade</li>
+                        <li>Checklist de primeiros passos</li>
+                        <li>Considerações finais e encerramento</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructors -->
+    <section class="instructors">
+        <div class="container">
+            <div class="section-header">
+                <h2>Corpo Docente</h2>
+                <p>Aprenda com quem é referência na aplicação prática de IA na saúde</p>
+            </div>
+            <div class="instructors-grid">
+                <div class="instructor-card featured">
+                    <div class="instructor-avatar" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">PC</div>
+                    <h3>Prof. Patrick Cruz</h3>
+                    <div class="instructor-role">Coordenador do Curso • Especialista em IA Aplicada à Saúde</div>
+                    <div class="instructor-bio">
+                        <ul>
+                            <li>Ensino na área da saúde e avaliação de tecnologias em saúde</li>
+                            <li>Apoio e suporte à tomada de decisão clínica baseada em evidências</li>
+                            <li>Inovação tecnológica na saúde e para clínicas e consultórios</li>
+                        </ul>
+                        <p><strong>Mentor em Inteligência Artificial e inovação tecnológica</strong> para profissionais da saúde, empresas e profissionais liberais que querem liderar a transformação digital com <strong>segurança jurídica e ética</strong>, seguindo as normas dos conselhos profissionais e LGPD.</p>
+                        <div class="method-badge">Criador do Método IA Pro+</div>
+                    </div>
+                </div>
+
+                <div class="instructor-card">
+                    <div class="instructor-avatar" style="background: linear-gradient(135deg, var(--neon-cyan), var(--neon-green));">JK</div>
+                    <h3>Dr. Jean Klay Machado</h3>
+                    <div class="instructor-role">Médico Ortopedista • Referência Nacional</div>
+                    <div class="instructor-bio">
+                        <p>Referência nacional na área ortopédica com vasta experiência em inovação tecnológica aplicada à prática médica.</p>
+                        <p>Especialista em automação de processos clínicos e documentação inteligente, traz <strong>cases reais de implementação de IA na ortopedia</strong> que são aplicáveis a todas as especialidades médicas.</p>
+                    </div>
+                </div>
+
+                <div class="instructor-card">
+                    <div class="instructor-avatar" style="background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));">AL</div>
+                    <h3>André Laurent</h3>
+                    <div class="instructor-role">Jornalista • Professor de Comunicação</div>
+                    <div class="instructor-bio">
+                        <p><strong>20 anos de atuação no mercado de comunicação</strong>, com formação especializada:</p>
+                        <ul>
+                            <li>Pós-graduação em Comunicação Científica</li>
+                            <li>MBA em Gestão de Agências de Marketing</li>
+                            <li>Mestrado em Planejamento do Desenvolvimento</li>
+                        </ul>
+                        <p>Dono da <strong>Agência Laurent Marketing de Autoridade</strong>, referência em comunicação integrada para profissionais da saúde.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="audience">
+        <div class="container">
+            <div class="section-header">
+                <h2>Para Quem é Este Curso</h2>
+                <p>Se você se identifica com algum desses perfis, este curso é para você</p>
+            </div>
+            <div class="audience-grid">
+                <div class="audience-item">
+                    <h4>🚀 Nunca usou agentes de IA</h4>
+                    <p>Partida acelerada do zero ao domínio prático — saia com um plano concreto</p>
+                </div>
+                <div class="audience-item">
+                    <h4>📈 Já usa IA, mas quer subir de nível</h4>
+                    <p>Método IA Pro+ validado que separa amadores de especialistas — pare de improvisar</p>
+                </div>
+                <div class="audience-item">
+                    <h4>📚 Quer acelerar produção científica</h4>
+                    <p>Materiais científicos, artigos e e-books em fração do tempo</p>
+                </div>
+                <div class="audience-item">
+                    <h4>⚡ Busca eficiência na prática clínica</h4>
+                    <p>Automação de prontuários e laudos que recupera horas da sua semana</p>
+                </div>
+                <div class="audience-item">
+                    <h4>🎓 Precisa otimizar ensino e pesquisa</h4>
+                    <p>Aulas completas e materiais didáticos de alta qualidade em minutos</p>
+                </div>
+                <div class="audience-item">
+                    <h4>💻 Deseja presença digital sem programar</h4>
+                    <p>Sites e sistemas profissionais sem gastar milhares com desenvolvedores</p>
+                </div>
+                <div class="audience-item">
+                    <h4>📢 Quer aumentar receita com comunicação</h4>
+                    <p>Estratégias de André Laurent para médicos que funcionam</p>
+                </div>
+                <div class="audience-item">
+                    <h4>🏆 Quer liderar inovação na saúde</h4>
+                    <p>Domine a IA dentro das normas do CFM e LGPD, com segurança jurídica</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="investimento">
+        <div class="container">
+            <div class="section-header">
+                <h2>Investimento</h2>
+                <p>Parcelamento em 3x sem juros disponível em todos os lotes</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card popular">
+                    <h3>🚨 1º Lote</h3>
+                    <div class="price">R$ 398<span>,00</span></div>
+                    <div class="installment">3x de R$ 132,67 sem juros</div>
+                    <ul class="pricing-features">
+                        <li>✓ Até esgotar vagas</li>
+                        <li>✓ Maior economia</li>
+                        <li>✓ Acesso a todo o conteúdo</li>
+                        <li>✓ Certificado de 6 horas</li>
+                        <li>✓ Material digital exclusivo</li>
+                        <li>✓ Banco de prompts</li>
+                        <li>✓ Coffee break</li>
+                    </ul>
+                    <a href="#" class="cta-button">Garantir Minha Vaga</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>2º Lote</h3>
+                    <div class="price">R$ 548<span>,00</span></div>
+                    <div class="installment">3x de R$ 182,67 sem juros</div>
+                    <ul class="pricing-features">
+                        <li>✓ Após esgotamento do 1º lote</li>
+                        <li>✓ Acesso a todo o conteúdo</li>
+                        <li>✓ Certificado de 6 horas</li>
+                        <li>✓ Material digital exclusivo</li>
+                        <li>✓ Banco de prompts</li>
+                        <li>✓ Coffee break</li>
+                    </ul>
+                    <a href="#" class="cta-button">Escolher 2º Lote</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Último Lote</h3>
+                    <div class="price">R$ 698<span>,00</span></div>
+                    <div class="installment">3x de R$ 232,67 sem juros</div>
+                    <ul class="pricing-features">
+                        <li>✓ Próximo à data do evento</li>
+                        <li>✓ Acesso a todo o conteúdo</li>
+                        <li>✓ Certificado de 6 horas</li>
+                        <li>✓ Material digital exclusivo</li>
+                        <li>✓ Banco de prompts</li>
+                        <li>✓ Coffee break</li>
+                    </ul>
+                    <a href="#" class="cta-button">Escolher Último Lote</a>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 40px; color: var(--gray-600);">
+                💳 Pagamento via cartão de crédito (parcelamento em 3x sem juros) ou PIX (à vista)<br>
+                🎁 Descontos especiais para parceiros e sociedades científicas (consulte condições)
+            </p>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="includes">
+        <div class="container">
+            <div class="section-header">
+                <h2>O Que Está Incluso</h2>
+                <p>Tudo que você precisa para começar a aplicar IA na sua prática imediatamente</p>
+            </div>
+            <div class="includes-grid">
+                <div class="include-item">
+                    <div class="include-icon">🎓</div>
+                    <h4>Certificação</h4>
+                    <p>Certificado de 6 horas emitido pela clínica.IA</p>
+                </div>
+                <div class="include-item">
+                    <div class="include-icon">📚</div>
+                    <h4>Material Digital</h4>
+                    <p>Apostilas e guias de referência rápida exclusivos</p>
+                </div>
+                <div class="include-item">
+                    <div class="include-icon">🤖</div>
+                    <h4>Banco de Prompts</h4>
+                    <p>Prompts prontos e testados para área da saúde</p>
+                </div>
+                <div class="include-item">
+                    <div class="include-icon">🎧</div>
+                    <h4>Suporte no Dia</h4>
+                    <p>Acompanhamento personalizado durante as atividades</p>
+                </div>
+                <div class="include-item">
+                    <div class="include-icon">☕</div>
+                    <h4>Coffee Break</h4>
+                    <p>Networking com outros profissionais inovadores</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ethics -->
+    <section class="ethics">
+        <div class="container">
+            <div class="section-header">
+                <h2>Compromisso Ético e Regulatório</h2>
+                <p>Segurança jurídica e ética em todas as aplicações de IA</p>
+            </div>
+            <div class="ethics-grid">
+                <div class="ethics-card">
+                    <h3>🛡️ Conformidade CFM e LGPD</h3>
+                    <p>Este curso segue rigorosamente a <strong>Resolução CFM nº 2.454/2026</strong> que estabelece:</p>
+                    <ul style="margin-top: 15px;">
+                        <li>A IA deve atuar como <strong>ferramenta de apoio</strong>, nunca substituindo o julgamento médico</li>
+                        <li><strong>Supervisão humana obrigatória</strong> em todas as decisões clínicas</li>
+                        <li>Transparência total com o paciente sobre o uso de tecnologia</li>
+                        <li>Registro de todas as interações de IA no prontuário</li>
+                        <li>Proteção de dados sensíveis conforme a <strong>Lei Geral de Proteção de Dados (LGPD)</strong></li>
+                    </ul>
+                </div>
+                <div class="ethics-card">
+                    <h3>🔍 Classificação de Risco</h3>
+                    <p>Aprenda a identificar sistemas de IA segundo o nível de risco:</p>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Baixo risco</strong> — aplicações administrativas e operacionais</li>
+                        <li><strong>Médio risco</strong> — suporte clínico indireto</li>
+                        <li><strong>Alto risco</strong> — sistemas que influenciam decisões clínicas relevantes</li>
+                    </ul>
+                    <p style="margin-top: 20px;"><strong>❤️ Complemento ao Cuidado Humano:</strong> A IA deve servir para potencializar o profissional de saúde, nunca substituí-lo. A tecnologia é uma aliada poderosa que aprimora diagnósticos, agiliza processos e libera tempo para o aspecto mais importante da medicina: <strong>a empatia e o cuidado humano</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contato e Realização</h2>
+                <p>Tire suas dúvidas e garanta sua vaga</p>
+            </div>
+            <div class="contact-info">
+                <a href="https://wa.me/5591992754425" class="contact-item" target="_blank">
+                    <div class="contact-icon">📱</div>
+                    <span>91 99275-4425</span>
+                </a>
+                <a href="mailto:clinica.ia.mentoria@gmail.com" class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <span>clinica.ia.mentoria@gmail.com</span>
+                </a>
+                <a href="https://www.clinicaia.ia.br" class="contact-item" target="_blank">
+                    <div class="contact-icon">🌐</div>
+                    <span>www.clinicaia.ia.br</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta">
+        <h2>Não Deixe a Revolução Passar Sem Você</h2>
+        <a href="#investimento" class="cta-button">Garantir Minha Vaga Agora - R$ 398,00</a>
+        <p class="footer-warning">⚠️ Últimas vagas do 1º lote | 3x sem juros em todos os lotes</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>clínica.IA</h3>
+        <p>Educação e Inovação em Saúde</p>
+        <p style="margin-top: 20px; font-size: 0.8rem;">© 2025 Clínica.IA • Todos os direitos reservados</p>
+    </footer>
+
+</body>
+</html>
